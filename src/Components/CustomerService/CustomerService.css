@@ -1,0 +1,17 @@
+.alignment{
+    text-align: left;
+}
+
+.icon-color{
+    color:rgba(255, 0, 0, 0.514);
+}
+
+.border-style{
+    border-style: solid;
+    border-color: rgb(247, 247, 54);
+    border-width: 1px 1px 1px 10px;
+}
+
+.bolder{
+    font-weight: bold;
+}

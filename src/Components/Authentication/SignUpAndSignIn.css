@@ -1,0 +1,15 @@
+
+.color{
+    float:right;
+    color: rgb(255, 0, 0);
+    border-bottom: 1px solid blue;
+    cursor: pointer;
+}
+
+.bd{
+    border:1px solid rgb(223, 71, 89);
+}
+
+.b button{
+    margin-left:10px;
+}
