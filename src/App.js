@@ -22,6 +22,7 @@ import OriginToDestination from './Components/GoogleM/OriginToDestination';
 import ProductInsert from './Components/Admin/ProductInsert';
 import Payment from './Components/Payment/Payment';
 import HandleProduct from './Components/Admin/HandleProduct';
+import UpdateProducts from './Components/Admin/UpdateProducts';
 
 export const UserContext = createContext();
 function App(props) {
@@ -37,27 +38,36 @@ function App(props) {
             <Carousel></Carousel>
             <Shop></Shop>
           </Route>
-          <Route path="/home">
+          <Route exact path="/home">
             <Carousel></Carousel>
             <Shop></Shop>
           </Route>
-          <Route path="/product/:productKey">
+          <Route exact path="/product/:productKey">
             <Buy></Buy>
           </Route>
           <Route path="/cart">
             <Cart></Cart>
           </Route>
-          <Route path="/returnAndOrders">
+          <Route exact path="/returnAndOrders">
             <ReturnsAndOrders></ReturnsAndOrders>
           </Route>
-          <Route path="/customer-service">
+          <Route exact path="/customer-service">
             <CustomerService></CustomerService>
           </Route>
-          <PrivateRoute path="/ordered">
+          <PrivateRoute exact path="/ordered">
             <Shipment></Shipment>
           </PrivateRoute>
-          <Route path="/login">
+          <Route exact path="/login">
             <SignUpAndSignIn></SignUpAndSignIn>
+          </Route>
+          <Route exact path="/productsInsert">
+            <ProductInsert></ProductInsert>
+          </Route>
+          <Route exact path="/handleProduct">
+            <HandleProduct></HandleProduct>
+          </Route>
+          <Route exact path="/handleProduct/update/:id">
+            <UpdateProducts></UpdateProducts>
           </Route>
           <Route path="*">
             <Error></Error>
@@ -66,9 +76,7 @@ function App(props) {
       </Router>
       {/* <GoogleM></GoogleM> */}
       {/* <OriginToDestination></OriginToDestination> */}
-      <ProductInsert></ProductInsert>
       <Payment></Payment>
-      <HandleProduct></HandleProduct>
     </UserContext.Provider>
   );
 }

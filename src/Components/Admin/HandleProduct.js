@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './HandleProduct.css';
 
 const HandleProduct = () => {
@@ -41,6 +42,7 @@ const HandleProduct = () => {
                     products.map((product) => <div className="product">
                         <p>Product Name: {product.name}</p>
                         <p>Product Id: {product._id}</p>
+                        <Link to = {`/handleProduct/update/${product._id}`}><button className="btn btn-primary mx-2">Update</button></Link>
                         <button onClick={() => handleDeleteProduct(product._id)} className="btn btn-danger">Delete</button>
                     </div>)
                 }

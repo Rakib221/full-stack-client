@@ -38,30 +38,38 @@ const ProductInsert = () => {
         e.preventDefault();
     }
     return (
-        <div>
-            <form action="/addProduct" onSubmit={handleAddProduct} method="post">
-                <div class="mb-3">
-                    <label for="name" className="form-label">Name</label>
-                    <input type="text" ref={nameRef} name="name" placeholder="name" className="form-control" id="name" ></input>
-                </div>
-                <div class="mb-3">
-                    <label for="price" className="form-label">Price</label>
-                    <input type="text" ref={priceRef} name="price" placeholder="price" className="form-control" id="price" ></input>
-                </div>
-                <div class="mb-3">
-                    <label for="category" className="form-label">Category</label>
-                    <input type="text" ref={categoryRef} name="category" placeholder="category" className="form-control" id="category" ></input>
-                </div>
-                <div class="mb-3">
-                    <label for="image" className="form-label">Image</label>
-                    <input type="file" ref={imgUrlRef} name="image" placeholder="image" className="form-control" id="description" ></input>
-                </div>
-                <div class="mb-3">
-                    <label for="description" className="form-label">Description</label>
-                    <input type="name" ref={descriptionRef} name="description" placeholder="description" className="form-control" id="description" ></input>
-                </div>
-                <button type="submit" className="btn btn-danger">Submit</button>
-            </form>
+        <div className="row">
+            <div className="col-lg-3">
+
+            </div>
+            <div className="col-lg-6">
+                <form action="/addProduct" onSubmit={handleAddProduct} method="post">
+                    <div class="mb-3">
+                        <label for="name" className="form-label">Name</label>
+                        <input type="text" ref={nameRef} name="name" placeholder="name" className="form-control" id="name" ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" className="form-label">Price</label>
+                        <input type="text" ref={priceRef} name="price" placeholder="price" className="form-control" id="price" ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" className="form-label">Category</label>
+                        <input type="text" ref={categoryRef} name="category" placeholder="category" className="form-control" id="category" ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" className="form-label">Image</label>
+                        <input type="file" ref={imgUrlRef} name="image" placeholder="image" className="form-control" id="description" ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" className="form-label">Description</label>
+                        <textarea type="text" ref={descriptionRef} name="description" placeholder="description" className="form-control" id="description" rows="5" cols="15" ></textarea>
+                    </div>
+                    <button type="submit" className="btn btn-danger">Submit</button>
+                </form>
+            </div>
+            <div className="col-lg-3">
+
+            </div>
         </div>
     );
 };

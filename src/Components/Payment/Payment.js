@@ -6,7 +6,7 @@ import { PaymentElement } from '@stripe/react-stripe-js';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_51JQBZIKJerLWy3FFvjA3KaatG2GJQocwGrmkVefC1mVVbNh0LtEEXNjTVkMQmilOhgJJlU1xIZWjSkHz9FZ4aAdh00fnHh9Vqj');
+const stripePromise = loadStripe('');
 const Payment = () => {
     const options = {
         // passing the client secret obtained from the server
@@ -18,7 +18,7 @@ const Payment = () => {
             <Elements stripe={stripePromise} options={options}>
                 <form>
                     <PaymentElement />
-                    <button>Submit</button>
+                    {/* <button>Submit</button> */}
                 </form>
             </Elements>
         </div>
