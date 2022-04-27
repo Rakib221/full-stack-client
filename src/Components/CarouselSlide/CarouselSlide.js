@@ -5,10 +5,16 @@ import { Carousel } from 'react-bootstrap';
 import Charts from '../Charts/Charts';
 const CarouselSlide = () => {
     const [carouselData, setCarouselData] = useState([]);
+    const [pageCount,setPageCount] = useState(0);
     useEffect(() =>{
         fetch('http://localhost:7777/products')
         .then((response) => response.json())
-        .then(data => setCarouselData(data))
+        .then(data => {
+            setCarouselData(data.products);
+            const count = data.count;
+            const pageNumber = Math.ceil(count/12);
+            setPageCount(pageNumber);
+        })
     },[])
 
         console.log(carouselData);
@@ -31,7 +37,7 @@ const CarouselSlide = () => {
                                 <Carousel.Item>
                                     <img
                                         className='w-100 h-100'
-                                        src={data.imgUrl}
+                                        src={data.img}
                                         alt="First slide"
                                     />
                                 </Carousel.Item>

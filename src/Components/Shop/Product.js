@@ -27,7 +27,7 @@ const Product = (props) => {
                             <Card.Title>Price: {price} $</Card.Title>
                             <Card.Title>Shipping cost: {shipping} $</Card.Title>
                             <Card.Title><span style={{ color: 'red' }}>{stock}</span> available. Please order hurry up</Card.Title>
-                            <h3><Link to={"/product/"+key}><Button onClick={() => props.handleAddProduct(props.product)}  style={{ width: '200px' }} variant="danger"><FiShoppingCart/>Buy</Button></Link></h3>
+                            <h3><Link to={"/product/"+key}><Button onClick={() => props.handleAddProduct(props.product)} style={{ width: '200px' }} variant="danger"><FiShoppingCart/>Buy</Button></Link></h3>
                             {/* <Button onClick={() => props.handleAddProduct(props.product)} style={{ width: '200px' }} variant="danger"><FiShoppingCart />Buy</Button> */}
                         </div>
                     </Card.Body>

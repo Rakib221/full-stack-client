@@ -6,3 +6,13 @@
     grid-row-gap: 15px;
 
 }
+
+.pagination button{
+    margin:2px;
+}
+
+.pagination .selected{
+    background-color:blue;
+    border-color:white;
+    color:white;
+}
