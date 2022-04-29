@@ -1,14 +1,37 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../App';
+import { getDatabaseCart, removeFromDatabaseCart } from '../../Utilities/databaseManager';
 import './Shipment.css';
 
 const Shipment = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        const savedCart = getDatabaseCart();
+        data.orders = savedCart;
+        data.authEmail = loggedAndSignedInUser.email;
+        console.log(data);
+        fetch('http://localhost:7777/orders',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(confirmOrders => {
+            console.log(confirmOrders);
+            if (confirmOrders.insertedId) {
+                alert("Order processed successfully")
+                const keysArray = Object.keys(savedCart);
+                keysArray.forEach(key =>removeFromDatabaseCart(key));
+                console.log("savedCart", savedCart);
+                reset();
+            }
+        })
+    };
 
     console.log(watch("example"));
     const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    console.log(loggedAndSignedInUser);
 
     return (
         <div className="row m-5">
