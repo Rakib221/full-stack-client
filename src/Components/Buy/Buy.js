@@ -14,12 +14,13 @@ const Buy = () => {
     useEffect(() => {
         const selectProduct = getDatabaseCart();
         console.log(selectProduct);
-        const keys = Object.keys(selectProduct);
-        console.log(keys);
-        fetch('http://localhost:7777/products/keys', {
+        // const keys = Object.keys(selectProduct);
+        const id = Object.keys(selectProduct);
+        console.log(id);
+        fetch('http://localhost:7777/products/_id', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(keys),
+            body: JSON.stringify(id),
         })
             .then(response => response.json())
             .then(products => {
@@ -39,6 +40,7 @@ const Buy = () => {
         // })
         // setFilterProducts(newSelectProducts);
     }, [])
+    console.log(filterProducts);
     // console.log(filterProducts);
     const [cartProducts, setCartProducts] = useState([]);
     const handleAddToCartProduct = (cartProduct) => {
@@ -55,11 +57,14 @@ const Buy = () => {
 
     const finalTotal = total + shippingCost + vat;
 
-
+// product_id instead of productKey
     const removeProduct = (productKey) => {
         const newFilterProduct = filterProducts.filter(pd => pd.key !== productKey);
         setFilterProducts(newFilterProduct);
         removeFromDatabaseCart(productKey);
+        // const newFilterProduct = filterProducts.filter(pd => pd._id !== product_id);
+        // setFilterProducts(newFilterProduct);
+        // removeFromDatabaseCart(product_id);
     }
     const history = useHistory();
     const purchasedDone = () => {

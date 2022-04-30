@@ -23,7 +23,11 @@ const Shop = () => {
         const sameProduct = newCart.filter(product => product.key === pd.key);
         const count = sameProduct.length;
         addToDatabaseCart(pd.key, count);
+        // const sameProduct = newCart.filter(product => product._id === pd._id);
+        // const count = sameProduct.length;
+        // addToDatabaseCart(pd._id, count);
     }
+    console.log(addToDatabaseCart);
     const handleChange = (e) => {
         setPrPerPage(e.target.value);
     }
@@ -42,6 +46,7 @@ const Shop = () => {
     }, [currentPage])
     const [color, setColor] = useState(null);
     console.log(prPerPage);
+    console.log(products);
     return (
         <div className="row boxSizing">
             <div className="col-lg-1">
@@ -51,7 +56,7 @@ const Shop = () => {
                 {/* <h1 style={{color:'red'}}>{products.length}</h1> */}
                 <ul className="gridContainer">
                     {
-                        products.map(product => <Product handleAddProduct={handleAddProduct} key={product.key} product={product}></Product>)
+                        products.map(product => <Product handleAddProduct={handleAddProduct} _id={product._id} product={product}></Product>)
                     }
                 </ul>
                 <div className="row">
