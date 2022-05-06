@@ -4,12 +4,15 @@ import { getDatabaseCart, removeFromDatabaseCart } from '../../Utilities/databas
 import { Card, ListGroup } from 'react-bootstrap';
 import SelectProducts from '../SelectProducts/SelectProducts';
 import './Buy.css';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../../App';
 // import { useAlert } from 'react-alert'
 
 const Buy = () => {
     //   const alert = useAlert();
     // const { productKey } = useParams();
+    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
     const [filterProducts, setFilterProducts] = useState([]);
     useEffect(() => {
         const selectProduct = getDatabaseCart();
@@ -88,6 +91,8 @@ const Buy = () => {
                         <ListGroup.Item>VAt: {vat}</ListGroup.Item>
                         <ListGroup.Item>Total:{finalTotal}</ListGroup.Item>
                         <button onClick={purchasedDone} className="btn btn-primary">Purchase order</button>
+                        <br />
+                        <Link to = '/orders' ><button style={{ width: '18rem' }} className="btn btn-danger">My orders</button></Link>
                     </ListGroup>
                 </Card>
             </div>

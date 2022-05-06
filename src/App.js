@@ -23,6 +23,7 @@ import ProductInsert from './Components/Admin/ProductInsert';
 import Payment from './Components/Payment/Payment';
 import HandleProduct from './Components/Admin/HandleProduct';
 import UpdateProducts from './Components/Admin/UpdateProducts';
+import Orders from './Components/Orders/Orders';
 
 export const UserContext = createContext();
 function App(props) {
@@ -56,6 +57,9 @@ function App(props) {
           </Route>
           <PrivateRoute exact path="/ordered">
             <Shipment></Shipment>
+          </PrivateRoute>
+          <PrivateRoute exact path="/orders">
+            <Orders></Orders>
           </PrivateRoute>
           <Route exact path="/login">
             <SignUpAndSignIn></SignUpAndSignIn>
