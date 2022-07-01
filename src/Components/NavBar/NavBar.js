@@ -56,7 +56,7 @@ const NavBar = () => {
                                         </NavDropdown.Item> 
                                     </div>  
                             </NavDropdown>
-                            <Nav.Link href="#action2">Last Minute Deals</Nav.Link>
+                            <Link to="/ordered">Order</Link>
                             <Nav.Link href="#action1">Bestsellers</Nav.Link>
                             <Nav.Link href="#action2">Gift Cards</Nav.Link>
                             <Nav.Link href="#action1">Sell On Ema-John</Nav.Link>
