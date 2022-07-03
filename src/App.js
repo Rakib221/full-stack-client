@@ -28,28 +28,28 @@ import AuthProvider from './Components/Context/AuthProvider';
 
 export const UserContext = createContext();
 function App(props) {
-  const [user, setUser] = useState({
-    newUser: false,
-    isGoogleSignIn: false,
-    isFacebookSignIn: false,
-    isGithubSignIn: false,
-    success: false,
-    signUpSuccess: false,
-    signInSuccess: false,
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: false,
-    error: '',
-    alert: '',
-    forgotPassword: false,
-    accessToken:''
-  });
-  const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useState(user);
+  // const [user, setUser] = useState({
+  //   newUser: false,
+  //   isGoogleSignIn: false,
+  //   isFacebookSignIn: false,
+  //   isGithubSignIn: false,
+  //   success: false,
+  //   signUpSuccess: false,
+  //   signInSuccess: false,
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  //   confirmPassword: false,
+  //   error: '',
+  //   alert: '',
+  //   forgotPassword: false,
+  //   accessToken:''
+  // });
+  // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useState(user);
   // loggedAndSignedInUser.lodded = true;
   // {loggedAndSignedInUser.lodded ? <p>Lodding.....</p> : 
   return (
-    <UserContext.Provider value={[loggedAndSignedInUser, setLoggedAndSignedInUser]} className="boxSizing">
+    // <UserContext.Provider value={[loggedAndSignedInUser, setLoggedAndSignedInUser]} className="boxSizing">
       <AuthProvider>
         <Router>
           <NavBar></NavBar>
@@ -83,6 +83,9 @@ function App(props) {
             <Route exact path="/login">
               <SignUpAndSignIn></SignUpAndSignIn>
             </Route>
+            <Route exact path="/route">
+              <GoogleMapDirec></GoogleMapDirec>
+            </Route>
             <Route exact path="/productsInsert">
               <ProductInsert></ProductInsert>
             </Route>
@@ -98,10 +101,7 @@ function App(props) {
           </Switch>
         </Router>
       </AuthProvider>
-      {/* <GoogleM></GoogleM> */}
-      {/* <OriginToDestination></OriginToDestination> */}
-      <Payment></Payment>
-    </UserContext.Provider>
+    // </UserContext.Provider>
   );
 }
 

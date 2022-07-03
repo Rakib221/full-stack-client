@@ -3,9 +3,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Offcanvas, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import TopNavBar from './TopNavBar/TopNavBar';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../App';
+import useAuth from '../Hook/useAuth';
+// import { UserContext } from '../../App';
 const NavBar = () => {
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    const {loggedAndSignedInUser, setLoggedAndSignedInUser} = useAuth();
+    const handleSignedOut = () =>{
+        const outUser = {
+            newUser: false,
+            isGoogleSignIn: false,
+            isFacebookSignIn: false,
+            isGithubSignIn: false,
+            success: false,
+            signUpSuccess: false,
+            signInSuccess: false,
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: false,
+            error: '',
+            alert: '',
+            forgotPassword: false,
+            accessToken:''
+        }
+        setLoggedAndSignedInUser(outUser);
+    }
     return (
         <div className='boxSizing'>
             <TopNavBar></TopNavBar>
@@ -61,13 +83,16 @@ const NavBar = () => {
                             <Nav.Link href="#action2">Gift Cards</Nav.Link>
                             <Nav.Link href="#action1">Sell On Ema-John</Nav.Link>
                             <Nav.Link href="customer-service">Customer Service</Nav.Link>
+                            <Link to="/route">Route</Link>
                         </div>
                         <div className="col-lg-1">
 
                         </div>
                         <div className="col-lg-3">
                             <Nav.Link href="#action2">Magic Gift Delivery With Prime</Nav.Link>
-                            <button onClick={()=>setLoggedAndSignedInUser({})}>Sign out</button>
+                            {
+                                !loggedAndSignedInUser.accessToken?<button><Link to="/login">Sign In</Link></button>:<button onClick={handleSignedOut}>Sign out</button>
+                            } 
                         </div>
                     </Container>
                 </Navbar>

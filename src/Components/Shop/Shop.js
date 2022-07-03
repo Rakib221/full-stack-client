@@ -7,7 +7,7 @@ import './Shop.css';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
 const Shop = () => {
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
     // console.log(fakeData);
     // const first12 = fakeData.slice(0, 12);
     // // console.log(first10);

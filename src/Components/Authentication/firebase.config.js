@@ -8,4 +8,5 @@ const firebaseConfig = {
     appId: process.env.APP_ID
   };
 
+
   export default firebaseConfig;

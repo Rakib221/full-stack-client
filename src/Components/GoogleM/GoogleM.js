@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-import apiKey from './ApiKey';
-// require('dotenv').config();
+require('dotenv').config();
 // console.log(process.env);
 
 const containerStyle = {
@@ -23,24 +22,26 @@ const onLoad = marker => {
   console.log('marker: ', marker)
 }
 
-function MyComponent() {
+const GoogleM = () => {
   return (
-    <LoadScript
-      googleMapsApiKey={apiKey}
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={position}
-        zoom={10}
+    <div>
+      <LoadScript
+        googleMapsApiKey={process.env.GOOGLE_MAP_API_KEY}
       >
-        { /* Child components, such as markers, info windows, etc. */}
-        <Marker
-          onLoad={onLoad}
-          position={position}
-        />
-      </GoogleMap>
-    </LoadScript>
-  )
-}
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={position}
+          zoom={13}
+        >
+          { /* Child components, such as markers, info windows, etc. */}
+          <Marker
+            onLoad={onLoad}
+            position={position}
+          />
+        </GoogleMap>
+      </LoadScript>
+    </div>
+  );
+};
 
-export default React.memo(MyComponent)
+export default GoogleM;

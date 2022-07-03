@@ -12,7 +12,7 @@ import { UserContext } from '../../App';
 const Buy = () => {
     //   const alert = useAlert();
     // const { productKey } = useParams();
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
     const [filterProducts, setFilterProducts] = useState([]);
     useEffect(() => {
         const selectProduct = getDatabaseCart();

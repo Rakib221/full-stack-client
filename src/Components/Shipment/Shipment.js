@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../App';
 import { getDatabaseCart, removeFromDatabaseCart } from '../../Utilities/databaseManager';
+import GoogleM from '../GoogleM/GoogleM';
+import useAuth from '../Hook/useAuth';
 import './Shipment.css';
 
 const Shipment = () => {
@@ -30,7 +32,8 @@ const Shipment = () => {
     };
 
     console.log(watch("example"));
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    const {loggedAndSignedInUser,setLoggedAndSignedInUser} = useAuth();
     console.log(loggedAndSignedInUser);
 
     return (
@@ -75,7 +78,7 @@ const Shipment = () => {
             </div>
             <div className="col-lg-2"></div>
             <div className="col-lg-5">
-                <h1>Google map under work</h1>
+                <GoogleM></GoogleM>
             </div>
             <div className="col-lg-1"></div>
         </div>

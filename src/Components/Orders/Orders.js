@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
+import useAuth from './../Hook/useAuth';
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    const {loggedAndSignedInUser,setLoggedAndSignedInUser} = useAuth();
     console.log(loggedAndSignedInUser);
     const auth = loggedAndSignedInUser.email
     useEffect(() => {

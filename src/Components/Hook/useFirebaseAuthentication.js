@@ -2,70 +2,103 @@ import { useState } from "react";
 import initializeAuthentication from "../Authentication/firebase.initialize";
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect } from "react";
-import { UserContext } from '../../App';
-import { useContext } from "react";
+// import { UserContext } from '../../App';
+// import { useContext } from "react";
 
 
 initializeAuthentication();
 
 const useFirebaseAuthentication = () => {
-    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
-    const [user,setUser] = useState({});
+    // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
+    const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useState({
+        newUser: false,
+        isGoogleSignIn: false,
+        isFacebookSignIn: false,
+        isGithubSignIn: false,
+        success: false,
+        signUpSuccess: false,
+        signInSuccess: false,
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: false,
+        error: '',
+        alert: '',
+        forgotPassword: false,
+        accessToken: ''
+    });
+
+    const [isLoading, setIsLoading] = useState(true);
     // console.log(loggedAndSignedInUser);
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
     const facebookProvider = new FacebookAuthProvider();
     const githubProvider = new GithubAuthProvider();
-    const handleSignInByGoogle = (e) => {
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                // const credential = GoogleAuthProvider.credentialFromResult(result);
-                // const token = credential.accessToken;
-                // The signed-in user info.
-                console.log(result.user);
-                const { displayName, photoUrl, email, accessToken } = result.user;
-                // console.log(displayName, photoUrl, email);
-                const signedInUser = {
-                    isGoogleSignIn: true,
-                    name: displayName,
-                    photo: photoUrl,
-                    email: email,
-                    accessToken: accessToken,
-                    error: '',
-                    success: true,
-                }
-                setLoggedAndSignedInUser(signedInUser);
-            }).catch((error) => {
-                // The AuthCredential type that was used.
-                // const credential = GoogleAuthProvider.credentialFromError(error);
-                const errorCode = error.code;
-                console.log(errorCode);
-                const errorMessage = error.message;
-                console.log(errorMessage);
-                const email = error.email;
-                console.log(email);
-                const credential = error.credential;
-                console.log(credential);
-                const newUserErrorInfo = { ...loggedAndSignedInUser };
-                newUserErrorInfo.error = errorMessage;
-                newUserErrorInfo.success = false;
-                setLoggedAndSignedInUser(newUserErrorInfo);
-            });
+
+    const handleSignInByGoogle = () => {
+        return signInWithPopup(auth, googleProvider);
     }
+    const handleSignInByFaceBook = () => {
+        return signInWithPopup(auth, facebookProvider);
+    }
+    const handleSignInByGithub = () => {
+        return signInWithPopup(auth, githubProvider);
+    }
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (signedUser) => {
+            console.log(signedUser);
+            if (signedUser.accessToken) {
+                // user signed in
+                console.log(signedUser);
+                const signedIn = { ...loggedAndSignedInUser };
+                console.log(signedIn.name);
+                signedIn.accessToken = signedUser.accessToken;
+                signedIn.signInSuccess = true;
+                setLoggedAndSignedInUser(signedIn);
+                const uid = signedUser.uid;
+            } else {
+                const signOutUser = {
+                    newUser: false,
+                    isGoogleSignIn: false,
+                    isFacebookSignIn: false,
+                    isGithubSignIn: false,
+                    success: false,
+                    signUpSuccess: false,
+                    signInSuccess: false,
+                    name: '',
+                    email: '',
+                    password: '',
+                    confirmPassword: false,
+                    error: '',
+                    alert: '',
+                    forgotPassword: false,
+                    accessToken: ''
+                }
+                setLoggedAndSignedInUser(signOutUser);
+            }
+            setIsLoading(false);
+        });
+    }, [])
     const handleSignOutByGoogle = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             const signOutUser = {
+                newUser: false,
                 isGoogleSignIn: false,
+                isFacebookSignIn: false,
+                isGithubSignIn: false,
+                success: false,
+                signUpSuccess: false,
                 signInSuccess: false,
                 name: '',
-                photo: '',
                 email: '',
                 password: '',
+                confirmPassword: false,
                 error: '',
-                accessToken: '',
-                success: true
+                alert: '',
+                forgotPassword: false,
+                accessToken: ''
             }
             setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
@@ -81,96 +114,80 @@ const useFirebaseAuthentication = () => {
             newUserErrorInfo.error = errorMessage;
             newUserErrorInfo.success = false;
             setLoggedAndSignedInUser(newUserErrorInfo);
+        }).finally(()=>{
+            setIsLoading(false);
         });
-    }
-
-    const handleSignInByFaceBook = () => {
-        return signInWithPopup(auth, facebookProvider)
     }
 
     const handleSignOutByFaceBook = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
             // Sign-out successful.
-            const afterSignOut = { ...loggedAndSignedInUser };
-            afterSignOut.error = '';
-            afterSignOut.name = '';
-            afterSignOut.isFacebookSignIn = false;
-            setLoggedAndSignedInUser(afterSignOut);
+            const signOutUser = {
+                newUser: false,
+                isGoogleSignIn: false,
+                isFacebookSignIn: false,
+                isGithubSignIn: false,
+                success: false,
+                signUpSuccess: false,
+                signInSuccess: false,
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: false,
+                error: '',
+                alert: '',
+                forgotPassword: false,
+                accessToken: ''
+            }
+            setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
             // An error happened.
             const fbSoError = { ...loggedAndSignedInUser };
             fbSoError.error = error.message;
             setLoggedAndSignedInUser(fbSoError);
+        }).finally(()=>{
+            setIsLoading(false);
         });
-    }
-
-    const handleSignInByGithub = () => {
-        signInWithPopup(auth, githubProvider)
-            .then((result) => {
-                // This gives you a GitHub Access Token. You can use it to access the GitHub API.
-                const credential = GithubAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-
-                // The signed-in user info.
-                console.log(result.user);
-                const githubUser = { ...loggedAndSignedInUser };
-                githubUser.error = '';
-                // githubUser.name = result.loggedAndSignedInUser.displayName;
-                githubUser.isGithubSignIn = true;
-                setLoggedAndSignedInUser(githubUser);
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                // const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GithubAuthProvider.credentialFromError(error);
-                // ...
-                const githubUser = { ...loggedAndSignedInUser };
-                githubUser.error = errorMessage;
-                setLoggedAndSignedInUser(githubUser);
-            });
     }
 
     const handleSignOutByGithub = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
-            const githubUser = { ...loggedAndSignedInUser };
-            githubUser.error = '';
-            githubUser.name = '';
-            githubUser.isGithubSignIn = false;
-            setLoggedAndSignedInUser(githubUser);
+            const signOutUser = {
+                newUser: false,
+                isGoogleSignIn: false,
+                isFacebookSignIn: false,
+                isGithubSignIn: false,
+                success: false,
+                signUpSuccess: false,
+                signInSuccess: false,
+                name: '',
+                email: '',
+                password: '',
+                confirmPassword: false,
+                error: '',
+                alert: '',
+                forgotPassword: false,
+                accessToken: ''
+            }
+            setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
             // An error happened.
             const githubUser = { ...loggedAndSignedInUser };
             githubUser.error = error.message;
             setLoggedAndSignedInUser(githubUser);
+        }).finally(()=>{
+            setIsLoading(false);
         });
     }
-
-    useEffect(() => {
-        onAuthStateChanged(auth, (signedUser) => {
-            if (signedUser) {
-                // user signed in
-                console.log(signedUser);
-                const signedIn = { ...loggedAndSignedInUser };
-                signedIn.name = signedUser.displayName;
-                signedIn.signInSuccess = true;
-                signedIn.isGoogleSignIn = true;
-                setLoggedAndSignedInUser(signedIn);
-                const uid = signedUser.uid;
-            } else {
-                console.log("not signed in");
-            }
-        });
-    }, [])
-
     console.log(loggedAndSignedInUser);
 
     return {
+        loggedAndSignedInUser,
+        setLoggedAndSignedInUser,
+        isLoading,
+        setIsLoading,
         handleSignInByGoogle,
         handleSignOutByGoogle,
         handleSignInByFaceBook,
