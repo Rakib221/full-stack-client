@@ -25,6 +25,7 @@ import HandleProduct from './Components/Admin/HandleProduct';
 import UpdateProducts from './Components/Admin/UpdateProducts';
 import Orders from './Components/Orders/Orders';
 import AuthProvider from './Components/Context/AuthProvider';
+import DashBoard from './Components/DashBoard/DashBoard';
 
 export const UserContext = createContext();
 function App(props) {
@@ -43,7 +44,8 @@ function App(props) {
   //   error: '',
   //   alert: '',
   //   forgotPassword: false,
-  //   accessToken:''
+  //   accessToken:'',
+  //   uid:''
   // });
   // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useState(user);
   // loggedAndSignedInUser.lodded = true;
@@ -79,6 +81,9 @@ function App(props) {
             </PrivateRoute>
             <PrivateRoute exact path="/orders">
               <Orders></Orders>
+            </PrivateRoute>
+            <PrivateRoute exact path="/dashboard">
+              <DashBoard></DashBoard>
             </PrivateRoute>
             <Route exact path="/login">
               <SignUpAndSignIn></SignUpAndSignIn>

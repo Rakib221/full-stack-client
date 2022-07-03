@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const containerStyle = {
   width: '400px',
-  height: '400px'
+  height: '450px'
 };
 
 // const center = {

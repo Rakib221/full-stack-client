@@ -25,7 +25,8 @@ const useFirebaseAuthentication = () => {
         error: '',
         alert: '',
         forgotPassword: false,
-        accessToken: ''
+        accessToken: '',
+        uid: ''
     });
 
     const [isLoading, setIsLoading] = useState(true);
@@ -48,15 +49,15 @@ const useFirebaseAuthentication = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (signedUser) => {
             console.log(signedUser);
-            if (signedUser.accessToken) {
+            if (signedUser) {
                 // user signed in
                 console.log(signedUser);
                 const signedIn = { ...loggedAndSignedInUser };
                 console.log(signedIn.name);
                 signedIn.accessToken = signedUser.accessToken;
                 signedIn.signInSuccess = true;
+                signedIn.user = signedUser.uid;
                 setLoggedAndSignedInUser(signedIn);
-                const uid = signedUser.uid;
             } else {
                 const signOutUser = {
                     newUser: false,
@@ -73,7 +74,8 @@ const useFirebaseAuthentication = () => {
                     error: '',
                     alert: '',
                     forgotPassword: false,
-                    accessToken: ''
+                    accessToken: '',
+                    uid: ''
                 }
                 setLoggedAndSignedInUser(signOutUser);
             }
@@ -98,7 +100,8 @@ const useFirebaseAuthentication = () => {
                 error: '',
                 alert: '',
                 forgotPassword: false,
-                accessToken: ''
+                accessToken: '',
+                uid: ''
             }
             setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
@@ -138,7 +141,8 @@ const useFirebaseAuthentication = () => {
                 error: '',
                 alert: '',
                 forgotPassword: false,
-                accessToken: ''
+                accessToken: '',
+                uid: ''
             }
             setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
@@ -169,7 +173,8 @@ const useFirebaseAuthentication = () => {
                 error: '',
                 alert: '',
                 forgotPassword: false,
-                accessToken: ''
+                accessToken: '',
+                uid: ''
             }
             setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {

@@ -47,8 +47,11 @@ const SignUpAndSignIn = () => {
                 // const accessToken = credential.accessToken;
                 // The signed-in user info.
                 // console.log(result.loggedAndSignedInUser.displayName);
+                console.log(result.user);
                 const updateFbUser = { ...loggedAndSignedInUser };
+                updateFbUser.uid = result.user.uid;
                 updateFbUser.accessToken = result.user.accessToken;
+                updateFbUser.email = result.user.email;
                 updateFbUser.error = '';
                 updateFbUser.isFacebookSignIn = true;
                 updateFbUser.name = result.user.displayName;
@@ -73,7 +76,7 @@ const SignUpAndSignIn = () => {
                 setIsLoading(false);
             });
     }
-    console.log(loggedAndSignedInUser);
+    // console.log(loggedAndSignedInUser);
 
     const handleLoginByGoogle = () => {
         handleSignInByGoogle()
@@ -83,18 +86,18 @@ const SignUpAndSignIn = () => {
                 // const token = credential.accessToken;
                 // The signed-in user info.
                 console.log(result.user);
-                const { displayName, photoUrl, email, accessToken } = result.user;
+                const { displayName, photoUrl, email, accessToken, uid } = result.user;
                 // console.log(displayName, photoUrl, email);
-                const signedInUser = {
-                    isGoogleSignIn: true,
-                    name: displayName,
-                    photo: photoUrl,
-                    email: email,
-                    accessToken: accessToken,
-                    error: '',
-                    success: true,
-                }
-                setLoggedAndSignedInUser(signedInUser);
+                const updateGoogleUser = {...loggedAndSignedInUser};
+                    updateGoogleUser.isGoogleSignIn = true;
+                    updateGoogleUser.name = displayName;
+                    updateGoogleUser.photo = photoUrl;
+                    updateGoogleUser.email = email;
+                    updateGoogleUser.accessToke = accessToken;
+                    updateGoogleUser.error = '';
+                    updateGoogleUser.success = true;
+                    updateGoogleUser.uid = uid;
+                setLoggedAndSignedInUser(updateGoogleUser);
                 history.push(redirect_uri);
             }).catch((error) => {
                 // The AuthCredential type that was used.
@@ -130,6 +133,7 @@ const SignUpAndSignIn = () => {
                 githubUser.error = '';
                 githubUser.name = result.user.displayName;
                 githubUser.isGithubSignIn = true;
+                githubUser.uid = result.user.uid;
                 setLoggedAndSignedInUser(githubUser);
                 history.push(redirect_uri);
             }).catch((error) => {
@@ -208,10 +212,11 @@ const SignUpAndSignIn = () => {
                     newUserInfo.password = user.password;
                     newUserInfo.name = user.name;
                     newUserInfo.email = userCredential.user.email;
+                    newUserInfo.uid = userCredential.user.uid;
                     newUserInfo.error = '';
                     newUserInfo.signUpSuccess = true;
                     setLoggedAndSignedInUser(newUserInfo);
-                    updateUserName(loggedAndSignedInUser.name);
+                    updateUserName(user.name);
                     verifyEmail();
                     // console.log(userCredential.user);
                 })
@@ -235,6 +240,7 @@ const SignUpAndSignIn = () => {
                     newUserInfo.accessToken = userCredential.user.accessToken;
                     newUserInfo.name = userCredential.user.displayName || "No name";
                     newUserInfo.email = userCredential.user.email;
+                    newUserInfo.uid = userCredential.user.uid;
                     newUserInfo.error = '';
                     newUserInfo.success = true;
                     // console.log(newUserInfo.name);
@@ -256,11 +262,14 @@ const SignUpAndSignIn = () => {
     }
 
     const verifyEmail = () => {
+        // alert("verifyEmail");
         sendEmailVerification(auth.currentUser)
             .then(result => {
+                // alert("Verify email success")
                 console.log(result);
             })
             .catch((error) => {
+                // alert(error.message);
                 console.log(error);
             });
     }
@@ -269,9 +278,9 @@ const SignUpAndSignIn = () => {
         updateProfile(auth.currentUser, {
             displayName: name
         }).then(() => {
-            alert('Profile updated successfully');
+            // alert('Profile updated successfully');
         }).catch((error) => {
-            alert('Profile does not updated successfully');
+            // alert('Profile does not updated successfully');
             console.log(error);
         });
     }
