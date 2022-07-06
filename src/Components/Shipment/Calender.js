@@ -5,6 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
 const Calender = ({valueDate, setValueDate}) => {
+    console.log(valueDate);
     return (
         <div>
             <LocalizationProvider dateAdapter={AdapterDateFns}>

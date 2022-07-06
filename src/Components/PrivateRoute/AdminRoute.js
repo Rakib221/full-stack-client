@@ -5,9 +5,9 @@ import PuffLoader from "react-spinners/PuffLoader";
 import useAuth from '../Hook/useAuth';
 import './PrivateRoute.css';
 
-const PrivateRoute = ({ children, ...rest }) => {
+const AdminRoute = ({ children, ...rest }) => {
     // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
-    const {loggedAndSignedInUser,isLoading} = useAuth();
+    const {loggedAndSignedInUser,admin, isLoading} = useAuth();
     if (isLoading) {
         return <div className="pre-loader"><PuffLoader color={'red'} isLoading={isLoading} size={150} /></div>
     }
@@ -16,12 +16,12 @@ const PrivateRoute = ({ children, ...rest }) => {
             <Route
                 {...rest}
                 render={({ location }) =>
-                    loggedAndSignedInUser.email || loggedAndSignedInUser.uid? (
+                    loggedAndSignedInUser.email && admin ? (
                         children
                     ) : (
                         <Redirect
                             to={{
-                                pathname: "/login",
+                                pathname: "/home",
                                 state: { from: location }
                             }}
                         />
@@ -32,4 +32,4 @@ const PrivateRoute = ({ children, ...rest }) => {
     );
 };
 
-export default PrivateRoute;
+export default AdminRoute;

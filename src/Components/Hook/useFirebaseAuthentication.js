@@ -26,8 +26,11 @@ const useFirebaseAuthentication = () => {
         alert: '',
         forgotPassword: false,
         accessToken: '',
-        uid: ''
+        uid: '',
+        isAdmin: false
     });
+
+    const [admin, setAdmin] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true);
     // console.log(loggedAndSignedInUser);
@@ -56,7 +59,7 @@ const useFirebaseAuthentication = () => {
                 console.log(signedIn.name);
                 signedIn.accessToken = signedUser.accessToken;
                 signedIn.signInSuccess = true;
-                signedIn.user = signedUser.uid;
+                signedIn.uid = signedUser.uid;
                 setLoggedAndSignedInUser(signedIn);
             } else {
                 const signOutUser = {
@@ -82,6 +85,13 @@ const useFirebaseAuthentication = () => {
             setIsLoading(false);
         });
     }, [])
+
+    useEffect(() => {
+        fetch(`http://localhost:7777/users/${loggedAndSignedInUser.email}`)
+        .then((response) => response.json())
+        .then(data => setAdmin(data.admin))
+    },[loggedAndSignedInUser.email])
+    
     const handleSignOutByGoogle = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
@@ -187,12 +197,14 @@ const useFirebaseAuthentication = () => {
         });
     }
     console.log(loggedAndSignedInUser);
-
+    
     return {
         loggedAndSignedInUser,
         setLoggedAndSignedInUser,
         isLoading,
         setIsLoading,
+        admin,
+        setAdmin,
         handleSignInByGoogle,
         handleSignOutByGoogle,
         handleSignInByFaceBook,

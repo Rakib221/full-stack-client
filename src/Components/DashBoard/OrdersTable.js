@@ -48,9 +48,9 @@ const OrdersTable = ({orders, setOrders}) => {
                             </TableRow>
                         ))}
                     </TableBody>
-                    {/* <h3>Delivery address</h3> */}
-                    {/* <h4>Street number: {orders[0].StreetNameAndNumber}</h4> */}
-                    {/* <h4>House address: {orders[0].HouseNumberAndName}</h4> */}
+                    {/* <h4>Delivery address</h4>
+                    <h4>Street number: {orders[0]?.StreetNameAndNumber}</h4>
+                    <h4>House address: {orders[0]?.HouseNumberAndName}</h4> */}
                 </Table>
             </TableContainer>
         </div>

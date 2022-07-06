@@ -91,7 +91,7 @@ const NavBar = () => {
                         <div className="col-lg-3">
                             <Nav.Link href="#action2">Magic Gift Delivery With Prime</Nav.Link>
                             {
-                                !loggedAndSignedInUser.accessToken?<button><Link to="/login">Sign In</Link></button>:<button onClick={handleSignedOut}>Sign out</button>
+                                !loggedAndSignedInUser.uid?<button><Link to="/login">Sign In</Link></button>:<button onClick={handleSignedOut}>Sign out</button>
                             }
                             <Link to="/dashboard">Dash board</Link>
                         </div>

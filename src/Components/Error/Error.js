@@ -3,7 +3,7 @@ import React from 'react';
 const Error = () => {
     return (
         <div className="boxSizing"> 
-            <h1>Unfortunately it can not be match</h1>
+            <h1>Error</h1>
         </div>
     );
 };

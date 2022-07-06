@@ -1,4 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams,
+    useRouteMatch
+} from "react-router-dom";
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,15 +24,21 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import UserOrders from './UserOrders';
-import Calender from '../Shipment/Calender';
-import OrdersTable from './OrdersTable';
+import { Button } from '@mui/material';
+import DashBoardHome from './DashBoardHome';
+import MakeAdmin from './MakeAdmin';
+import AddProduct from './AddProduct';
+import useAuth from '../Hook/useAuth';
 
 const drawerWidth = 200;
 
 const DashBoard = (props) => {
+    const { admin } = useAuth();
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [valueDate, setValueDate] = useState(new Date());
+
+    let { path, url } = useRouteMatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -34,6 +48,14 @@ const DashBoard = (props) => {
         <div>
             <Toolbar />
             <Divider />
+            <Link to='/'><Button variant="inherit">Orders</Button></Link>
+            <Link to={`${url}`}><Button variant="inherit">Dash Board</Button></Link>
+            {
+                admin && <>
+                    <Link to={`${url}/admin`}><Button variant="inherit">Make Admin</Button></Link>
+                    <Link to={`${url}/addProduct`}><Button variant="inherit">Add Product</Button></Link>
+                </>
+            }
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                     <ListItem key={text} disablePadding>
@@ -47,18 +69,6 @@ const DashBoard = (props) => {
                 ))}
             </List>
             <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
         </div>
     );
 
@@ -127,19 +137,17 @@ const DashBoard = (props) => {
                     sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
                 >
                     <Toolbar />
-                    <Typography paragraph>
-                        <div className="row">
-                            <div className="col-lg-1"></div>
-                            <div className="col-lg-2">
-                                <Calender></Calender>
-                            </div>
-                            <div className="col-lg-1"></div>
-                            <div className="col-lg-7">
-                                <OrdersTable></OrdersTable>
-                            </div>
-                            <div className="col-lg-1"></div>
-                        </div>
-                    </Typography>
+                    <Switch>
+                        <Route exact path={path}>
+                            <DashBoardHome></DashBoardHome>
+                        </Route>
+                        <Route exact path={`${path}/admin`}>
+                            <MakeAdmin></MakeAdmin>
+                        </Route>
+                        <Route exact path={`${path}/addProduct`}>
+                            <AddProduct></AddProduct>
+                        </Route>
+                    </Switch>
                 </Box>
             </Box>
         </div>

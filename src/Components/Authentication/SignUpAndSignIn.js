@@ -56,6 +56,8 @@ const SignUpAndSignIn = () => {
                 updateFbUser.isFacebookSignIn = true;
                 updateFbUser.name = result.user.displayName;
                 setLoggedAndSignedInUser(updateFbUser);
+                console.log(loggedAndSignedInUser);
+                saveUser(result.user.email, result.user.displayName, result.user.uid,'PUT');
                 history.push(redirect_uri);
                 // history.replace(from);
 
@@ -98,6 +100,7 @@ const SignUpAndSignIn = () => {
                     updateGoogleUser.success = true;
                     updateGoogleUser.uid = uid;
                 setLoggedAndSignedInUser(updateGoogleUser);
+                saveUser(email, displayName, uid,'PUT');
                 history.push(redirect_uri);
             }).catch((error) => {
                 // The AuthCredential type that was used.
@@ -130,10 +133,12 @@ const SignUpAndSignIn = () => {
                 // console.log(result.user);
                 const githubUser = { ...loggedAndSignedInUser };
                 githubUser.accessToken = result.user.accessToken;
+                githubUser.email = result.user.email;
                 githubUser.error = '';
                 githubUser.name = result.user.displayName;
                 githubUser.isGithubSignIn = true;
                 githubUser.uid = result.user.uid;
+                saveUser(result.user.email, result.user.displayName, result.user.uid,'PUT');
                 setLoggedAndSignedInUser(githubUser);
                 history.push(redirect_uri);
             }).catch((error) => {
@@ -218,6 +223,7 @@ const SignUpAndSignIn = () => {
                     setLoggedAndSignedInUser(newUserInfo);
                     updateUserName(user.name);
                     verifyEmail();
+                    saveUser(user.email, user.name, userCredential.user.uid, 'POST');
                     // console.log(userCredential.user);
                 })
                 .catch((error) => {
@@ -324,6 +330,22 @@ const SignUpAndSignIn = () => {
         e.preventDefault();
     }
 
+    const saveUser = (email, displayName, uid, method) =>{
+        const newUser = {email:email, name:displayName, uid:uid};
+        fetch('http://localhost:7777/userDetails',{
+            method: method,
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify(newUser)
+        })
+        .then(response => response.json())
+        .then(userDetails => {
+            console.log(userDetails)
+        })
+        .catch(error =>{
+            alert(error.message);
+        })
+    }
+
     return (
         <div className="">
             <div className="row">
@@ -382,7 +404,7 @@ const SignUpAndSignIn = () => {
                 </div>
                 <div className='col-lg-4 d-flex justify-content-center align-items-center b'>
                     {
-                        loggedAndSignedInUser.isGoogleSignIn ? <button name="google" onClick={handleSignOutByGoogle} className="btn btn-danger">Sign Out <ImGoogle /></button> : <button name="google" onClick={handleLoginByGoogle} className="btn btn-danger">Sign In <ImGoogle /></button>
+                        loggedAndSignedInUser.isGoogleSignIn ? <button onClick={handleSignOutByGoogle} className="btn btn-danger">Sign Out <ImGoogle /></button> : <button name="google" onClick={handleLoginByGoogle} className="btn btn-danger">Sign In <ImGoogle /></button>
                     }
                     {
                         loggedAndSignedInUser.isFacebookSignIn ? <button name="facebook" onClick={handleSignOutByFaceBook} className="btn btn-danger">Sign Out <BsFacebook /></button> : <button name="facebook" onClick={handleFacebookLogin} className="btn btn-danger">Sign In <BsFacebook /></button>

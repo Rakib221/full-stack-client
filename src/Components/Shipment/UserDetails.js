@@ -26,6 +26,7 @@ const UserDetails = ({valueDate, setValueDate}) => {
             data.orders = savedCart;
             data.authEmail = loggedAndSignedInUser.email;
             data.uid = loggedAndSignedInUser.uid;
+            data.ExpectedDeliveryDate = valueDate.toDateString();
             console.log(data);
             fetch('http://localhost:7777/orders', {
                 method: 'POST',
@@ -96,7 +97,7 @@ const UserDetails = ({valueDate, setValueDate}) => {
                 {errors.ApartmentNumber && <span className="error">Apartment number is required</span>}
                 <br />
                 <br />
-                <input value={valueDate.toDateString()} {...register("ExpectedDeliveryDate", { required: false })} />
+                <input disabled value={valueDate.toDateString()} {...register("ExpectedDeliveryDate", { required: false })} />
                 <br />
                 <br />
                 <input className="btn btn-danger" type="submit" />
