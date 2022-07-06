@@ -1,10 +1,10 @@
 import React from 'react';
-import HandleProduct from '../Admin/HandleProduct';
+import ProductInsert from '../Admin/ProductInsert';
 
 const AddProduct = () => {
     return (
         <div>
-            <HandleProduct></HandleProduct>
+            <ProductInsert></ProductInsert>
         </div>
     );
 };

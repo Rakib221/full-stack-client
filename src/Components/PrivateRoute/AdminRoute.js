@@ -7,7 +7,7 @@ import './PrivateRoute.css';
 
 const AdminRoute = ({ children, ...rest }) => {
     // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
-    const {loggedAndSignedInUser,admin, isLoading} = useAuth();
+    const {loggedUser, loggedAndSignedInUser, admin, isLoading} = useAuth();
     if (isLoading) {
         return <div className="pre-loader"><PuffLoader color={'red'} isLoading={isLoading} size={150} /></div>
     }
@@ -16,7 +16,7 @@ const AdminRoute = ({ children, ...rest }) => {
             <Route
                 {...rest}
                 render={({ location }) =>
-                    loggedAndSignedInUser.email && admin ? (
+                loggedAndSignedInUser.email && admin ? (
                         children
                     ) : (
                         <Redirect

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import initializeAuthentication from "../Authentication/firebase.initialize";
-import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider, onAuthStateChanged, getIdToken, signOut } from "firebase/auth";
 import { useEffect } from "react";
 // import { UserContext } from '../../App';
 // import { useContext } from "react";
@@ -30,7 +30,11 @@ const useFirebaseAuthentication = () => {
         isAdmin: false
     });
 
+    const [loggedUser, setLoggedUser] = useState({});
+
     const [admin, setAdmin] = useState(false);
+
+    const [token, setToken] = useState('');
 
     const [isLoading, setIsLoading] = useState(true);
     // console.log(loggedAndSignedInUser);
@@ -51,12 +55,16 @@ const useFirebaseAuthentication = () => {
 
     useEffect(() => {
         onAuthStateChanged(auth, (signedUser) => {
-            console.log(signedUser);
+            // console.log(signedUser);
             if (signedUser) {
                 // user signed in
-                console.log(signedUser);
+                setLoggedUser(signedUser);
+                getIdToken(signedUser)
+                .then(idToken => {
+                    setToken(idToken);
+                })
                 const signedIn = { ...loggedAndSignedInUser };
-                console.log(signedIn.name);
+                // console.log(signedIn.name);
                 signedIn.accessToken = signedUser.accessToken;
                 signedIn.signInSuccess = true;
                 signedIn.uid = signedUser.uid;
@@ -81,6 +89,7 @@ const useFirebaseAuthentication = () => {
                     uid: ''
                 }
                 setLoggedAndSignedInUser(signOutUser);
+                setLoggedUser({});
             }
             setIsLoading(false);
         });
@@ -116,13 +125,13 @@ const useFirebaseAuthentication = () => {
             setLoggedAndSignedInUser(signOutUser);
         }).catch((error) => {
             const errorCode = error.code;
-            console.log(errorCode);
+            // console.log(errorCode);
             const errorMessage = error.message;
-            console.log(errorMessage);
+            // console.log(errorMessage);
             const email = error.email;
-            console.log(email);
+            // console.log(email);
             const credential = error.credential;
-            console.log(credential);
+            // console.log(credential);
             const newUserErrorInfo = { ...loggedAndSignedInUser };
             newUserErrorInfo.error = errorMessage;
             newUserErrorInfo.success = false;
@@ -196,9 +205,11 @@ const useFirebaseAuthentication = () => {
             setIsLoading(false);
         });
     }
-    console.log(loggedAndSignedInUser);
+    console.log(loggedUser);
     
     return {
+        loggedUser,
+        setLoggedUser,
         loggedAndSignedInUser,
         setLoggedAndSignedInUser,
         isLoading,
@@ -210,7 +221,8 @@ const useFirebaseAuthentication = () => {
         handleSignInByFaceBook,
         handleSignOutByFaceBook,
         handleSignInByGithub,
-        handleSignOutByGithub
+        handleSignOutByGithub,
+        token
     }
 
 }

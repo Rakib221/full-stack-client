@@ -94,6 +94,7 @@ const NavBar = () => {
                                 !loggedAndSignedInUser.uid?<button><Link to="/login">Sign In</Link></button>:<button onClick={handleSignedOut}>Sign out</button>
                             }
                             <Link to="/dashboard">Dash board</Link>
+                            <Link to="/makeAdmin">Make Admin</Link>
                         </div>
                     </Container>
                 </Navbar>

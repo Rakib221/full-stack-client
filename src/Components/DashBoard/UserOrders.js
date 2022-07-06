@@ -4,14 +4,18 @@ import OrdersTable from './OrdersTable';
 
 const UserOrders = ({valueDate, setValueDate}) => {
     console.log(valueDate);
-    const {loggedAndSignedInUser, setLoggedAndSignedInUser} = useAuth();
+    const {loggedAndSignedInUser, setLoggedAndSignedInUser, token} = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [orders, setOrders] = useState([]);
     console.log(loggedAndSignedInUser.uid);
     useEffect(() => {
         console.log("successfully enter in useEffect");
         const url = `http://localhost:7777/orders?uid=${loggedAndSignedInUser.uid}&date=${valueDate}`
-        fetch(url)
+        fetch(url,{
+            headers:{
+                'authorization': `Bearer ${token}`
+            }
+        })
         .then((response) =>response.json())
         .then(data =>setOrders(data))
     }, [valueDate]);

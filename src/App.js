@@ -29,7 +29,7 @@ import DashBoard from './Components/DashBoard/DashBoard';
 import UserOrders from './Components/DashBoard/UserOrders';
 import MakeAdmin from './Components/DashBoard/MakeAdmin';
 import AdminRoute from './Components/PrivateRoute/AdminRoute';
-import useAuth from './Components/Hook/useAuth';
+import AddProduct from './Components/DashBoard/AddProduct';
 
 export const UserContext = createContext();
 function App(props) {
@@ -54,7 +54,6 @@ function App(props) {
   // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useState(user);
   // loggedAndSignedInUser.lodded = true;
   // {loggedAndSignedInUser.lodded ? <p>Lodding.....</p> : 
-  const {admin} = useAuth();
   return (
     // <UserContext.Provider value={[loggedAndSignedInUser, setLoggedAndSignedInUser]} className="boxSizing">
       <AuthProvider>
@@ -108,14 +107,14 @@ function App(props) {
             <AdminRoute exact path="/makeAdmin">
               <MakeAdmin></MakeAdmin>
             </AdminRoute>
+            <AdminRoute exact path="/addDoctor">
+              <AddProduct></AddProduct>
+            </AdminRoute>
             <Route path="*">
               <Error></Error>
             </Route>
           </Switch>
         </Router>
-        {/* {
-          admin && <MakeAdmin></MakeAdmin>
-        } */}
       </AuthProvider>
     // </UserContext.Provider>
   );

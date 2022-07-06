@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import useAuth from '../Hook/useAuth';
 
 const MakeAdmin = () => {
     const [admin, setAdmin] = useState({adminEmail:''});
     const [success, setSuccess] = useState(false);
+    const {token} = useAuth();
     const adminInformation = (e) => {
             const isValid = /\S+@\S+\.\S+/.test(e.target.value);
             if (isValid) {
@@ -18,7 +20,10 @@ const MakeAdmin = () => {
         // console.log("admin clicked");
         fetch('http://localhost:7777/users/admin',{
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'authorization':`Bearer ${token}`,
+                'Content-Type': 'application/json'
+             },
             body: JSON.stringify(admin)
         })
         .then(response => response.json())

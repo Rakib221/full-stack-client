@@ -29,6 +29,7 @@ import DashBoardHome from './DashBoardHome';
 import MakeAdmin from './MakeAdmin';
 import AddProduct from './AddProduct';
 import useAuth from '../Hook/useAuth';
+import AdminRoute from '../PrivateRoute/AdminRoute';
 
 const drawerWidth = 200;
 
@@ -141,12 +142,12 @@ const DashBoard = (props) => {
                         <Route exact path={path}>
                             <DashBoardHome></DashBoardHome>
                         </Route>
-                        <Route exact path={`${path}/admin`}>
+                        <AdminRoute exact path={`${path}/admin`}>
                             <MakeAdmin></MakeAdmin>
-                        </Route>
-                        <Route exact path={`${path}/addProduct`}>
+                        </AdminRoute>
+                        <AdminRoute exact path={`${path}/addProduct`}>
                             <AddProduct></AddProduct>
-                        </Route>
+                        </AdminRoute>
                     </Switch>
                 </Box>
             </Box>
