@@ -30,6 +30,7 @@ import MakeAdmin from './MakeAdmin';
 import AddProduct from './AddProduct';
 import useAuth from '../Hook/useAuth';
 import AdminRoute from '../PrivateRoute/AdminRoute';
+import Payment from './Payment/Payment';
 
 const drawerWidth = 200;
 
@@ -142,10 +143,13 @@ const DashBoard = (props) => {
                         <Route exact path={path}>
                             <DashBoardHome></DashBoardHome>
                         </Route>
-                        <AdminRoute exact path={`${path}/admin`}>
+                        {/* <Route path={`${path}/payment/:orderId`}>
+                            <Payment></Payment>
+                        </Route> */}
+                        <AdminRoute path={`${path}/admin`}>
                             <MakeAdmin></MakeAdmin>
                         </AdminRoute>
-                        <AdminRoute exact path={`${path}/addProduct`}>
+                        <AdminRoute path={`${path}/addProduct`}>
                             <AddProduct></AddProduct>
                         </AdminRoute>
                     </Switch>

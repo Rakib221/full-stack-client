@@ -36,6 +36,8 @@ const useFirebaseAuthentication = () => {
 
     const [token, setToken] = useState('');
 
+    const [price, setPrice] = useState(0);
+
     const [isLoading, setIsLoading] = useState(true);
     // console.log(loggedAndSignedInUser);
     const auth = getAuth();
@@ -208,6 +210,8 @@ const useFirebaseAuthentication = () => {
     console.log(loggedUser);
     
     return {
+        price,
+        setPrice,
         loggedUser,
         setLoggedUser,
         loggedAndSignedInUser,

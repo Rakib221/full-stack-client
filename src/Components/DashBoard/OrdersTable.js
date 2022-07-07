@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -31,6 +32,7 @@ const OrdersTable = ({orders, setOrders}) => {
                             <TableCell align="right">Order date</TableCell>
                             <TableCell align="right">Expected delivery date</TableCell>
                             <TableCell align="right">Condition</TableCell>
+                            <TableCell align="right">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -45,6 +47,7 @@ const OrdersTable = ({orders, setOrders}) => {
                                 <TableCell align="right">{row.createAt}</TableCell>
                                 <TableCell align="right">{row.ExpectedDeliveryDate}</TableCell>
                                 <TableCell align="right">Pending</TableCell>
+                                <TableCell align="right">{row.payment ? 'Paid':<Link to = {`/dashboard/payment/${row._id}`}><button>Pay</button></Link>}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -7,6 +7,7 @@ import './Buy.css';
 import { Link, useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
+import useAuth from '../Hook/useAuth';
 // import { useAlert } from 'react-alert'
 
 const Buy = () => {
@@ -14,6 +15,7 @@ const Buy = () => {
     // const { productKey } = useParams();
     // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
     const [filterProducts, setFilterProducts] = useState([]);
+    const {price, setPrice} = useAuth();
     useEffect(() => {
         const selectProduct = getDatabaseCart();
         console.log(selectProduct);
@@ -59,6 +61,7 @@ const Buy = () => {
     const vat = Math.ceil(total * 0.05);
 
     const finalTotal = total + shippingCost + vat;
+    setPrice(finalTotal);
 
 // product_id instead of productKey
     const removeProduct = (productKey) => {
@@ -89,7 +92,7 @@ const Buy = () => {
                         <ListGroup.Item>Total Products: {cartProducts.length}</ListGroup.Item>
                         <ListGroup.Item>Shipping cost: {shippingCost}</ListGroup.Item>
                         <ListGroup.Item>VAt: {vat}</ListGroup.Item>
-                        <ListGroup.Item>Total:{finalTotal}</ListGroup.Item>
+                        <ListGroup.Item>Total:{price}</ListGroup.Item>
                         <button onClick={purchasedDone} className="btn btn-primary">Purchase order</button>
                         <br />
                         <Link to = '/orders' ><button style={{ width: '18rem' }} className="btn btn-danger">My orders</button></Link>

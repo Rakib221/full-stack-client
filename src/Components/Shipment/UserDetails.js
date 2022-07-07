@@ -9,6 +9,7 @@ import OpenModal from './OpenModal';
 const UserDetails = ({valueDate, setValueDate}) => {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm();
     // const [open, setOpen] = useState(false);
+    const { loggedAndSignedInUser, setLoggedAndSignedInUser, price, setPrice } = useAuth();
     const [handleModal, setHandleModal] = useState({
         open: false,
         isOrderAvailable: false
@@ -26,6 +27,7 @@ const UserDetails = ({valueDate, setValueDate}) => {
             data.orders = savedCart;
             data.authEmail = loggedAndSignedInUser.email;
             data.uid = loggedAndSignedInUser.uid;
+            data.price = price;
             data.ExpectedDeliveryDate = valueDate.toDateString();
             console.log(data);
             fetch('http://localhost:7777/orders', {
@@ -59,7 +61,6 @@ const UserDetails = ({valueDate, setValueDate}) => {
 
     console.log(watch("example"));
     // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
-    const { loggedAndSignedInUser, setLoggedAndSignedInUser } = useAuth();
     console.log(loggedAndSignedInUser);
 
     return (
