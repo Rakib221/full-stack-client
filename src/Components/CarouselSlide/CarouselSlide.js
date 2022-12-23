@@ -7,7 +7,7 @@ const CarouselSlide = () => {
     const [carouselData, setCarouselData] = useState([]);
     const [pageCount,setPageCount] = useState(0);
     useEffect(() =>{
-        fetch('https://sleepy-coast-60059.herokuapp.com/products')
+        fetch('https://full-stack-server-hasan.up.railway.app/products')
         .then((response) => response.json())
         .then(data => {
             setCarouselData(data.products);

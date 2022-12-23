@@ -20,7 +20,7 @@ const Buy = () => {
         // const keys = Object.keys(selectProduct);
         const id = Object.keys(selectProduct);
 
-        fetch('https://sleepy-coast-60059.herokuapp.com/products/_id', {
+        fetch('https://full-stack-server-hasan.up.railway.app/products/_id', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(id),

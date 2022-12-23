@@ -9,7 +9,7 @@ const Payment = () => {
     const [orderForPayment, setOrderForPayment] = useState({});
     const [clientSecret, setClientSecret] = useState({});
     useEffect(() => {
-        fetch(`https://sleepy-coast-60059.herokuapp.com/payment/${orderId}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/payment/${orderId}`)
             .then(response => response.json())
             .then(paymentOrder => {
                 setOrderForPayment(paymentOrder);

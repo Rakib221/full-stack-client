@@ -29,7 +29,7 @@ const Shop = () => {
     // handleAddProduct = {handleAddProduct}
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch(`https://sleepy-coast-60059.herokuapp.com/products?page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/products?page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
             .then(response => response.json())
             .then(data => {
                 setProducts(data.products);

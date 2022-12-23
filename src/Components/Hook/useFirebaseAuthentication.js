@@ -102,7 +102,7 @@ const useFirebaseAuthentication = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`https://sleepy-coast-60059.herokuapp.com/users/${loggedAndSignedInUser.email}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/users/${loggedAndSignedInUser.email}`)
             .then((response) => response.json())
             .then(data => setAdmin(data.admin))
     }, [loggedAndSignedInUser.email])

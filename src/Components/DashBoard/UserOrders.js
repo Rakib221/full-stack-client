@@ -7,7 +7,7 @@ const UserOrders = ({valueDate, setValueDate}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [orders, setOrders] = useState([]);
     useEffect(() => {
-        const url = `https://sleepy-coast-60059.herokuapp.com/orders?uid=${loggedAndSignedInUser.uid}&date=${valueDate}`
+        const url = `https://full-stack-server-hasan.up.railway.app/orders?uid=${loggedAndSignedInUser.uid}&date=${valueDate}`
         fetch(url,{
             headers:{
                 'authorization': `Bearer ${token}`

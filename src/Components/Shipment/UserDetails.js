@@ -31,7 +31,7 @@ const UserDetails = ({valueDate, setValueDate}) => {
             data.uid = loggedAndSignedInUser.uid;
             data.price = price;
             data.ExpectedDeliveryDate = valueDate.toDateString();
-            fetch('https://sleepy-coast-60059.herokuapp.com/orders', {
+            fetch('https://full-stack-server-hasan.up.railway.app/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

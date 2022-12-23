@@ -13,7 +13,7 @@ const CheckOut = ({ orderForPayment }) => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
 
     useEffect(() => {
-        fetch('https://sleepy-coast-60059.herokuapp.com/create-payment-intent', {
+        fetch('https://full-stack-server-hasan.up.railway.app/create-payment-intent', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ price })
@@ -81,7 +81,7 @@ const CheckOut = ({ orderForPayment }) => {
             funding: paymentMethod.card.last4
 
         }
-        fetch(`https://sleepy-coast-60059.herokuapp.com/orders/${_id}`, {
+        fetch(`https://full-stack-server-hasan.up.railway.app/orders/${_id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ payment })

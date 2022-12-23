@@ -15,7 +15,7 @@ const MakeAdmin = () => {
         }
 
     const handleAdmin = (e) => {
-        fetch('https://sleepy-coast-60059.herokuapp.com/users/admin',{
+        fetch('https://full-stack-server-hasan.up.railway.app/users/admin',{
             method: 'PUT',
             headers: { 
                 'authorization':`Bearer ${token}`,

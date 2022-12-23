@@ -30,7 +30,7 @@ const LeaveComment = () => {
             const ifUserExists = {...commentUserDetails};
             ifUserExists.userUid = loggedAndSignedInUser.uid;
             setCommentUserDetails(ifUserExists);
-            fetch('https://sleepy-coast-60059.herokuapp.com/comments', {
+            fetch('https://full-stack-server-hasan.up.railway.app/comments', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(commentUserDetails)

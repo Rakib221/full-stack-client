@@ -299,7 +299,7 @@ const SignUpAndSignIn = () => {
 
     const saveUser = (email, displayName, uid, method) => {
         const newUser = { email: email, name: displayName, uid: uid };
-        fetch('https://sleepy-coast-60059.herokuapp.com/userDetails', {
+        fetch('https://full-stack-server-hasan.up.railway.app/userDetails', {
             method: method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newUser)

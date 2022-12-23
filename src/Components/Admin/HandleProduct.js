@@ -7,14 +7,14 @@ import './HandleProduct.css';
 const HandleProduct = () => {
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetch('https://sleepy-coast-60059.herokuapp.com/products')
+        fetch('https://full-stack-server-hasan.up.railway.app/products')
             .then((response) => response.json())
             .then(data => setProducts(data))
     }, []);
     const handleDeleteProduct = (id) => {
         const proceed = window.confirm("Are you sure? you want to delete this product!");
         if (proceed) {
-            const url = `https://sleepy-coast-60059.herokuapp.com/products/${id}`;
+            const url = `https://full-stack-server-hasan.up.railway.app/products/${id}`;
             fetch(url, {
                 method: 'DELETE',
                 // headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },

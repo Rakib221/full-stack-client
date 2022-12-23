@@ -31,7 +31,7 @@ const ProductInsert = () => {
         const url = urlRef.current.value;
         const productData = { name, seller, img, url, price, shipping, wholePrice, priceFraction, stock, category, star, starCount, description };
         // send request to post data on server
-        fetch('https://sleepy-coast-60059.herokuapp.com/products', {
+        fetch('https://full-stack-server-hasan.up.railway.app/products', {
             method: 'POST', // or 'PUT'
             headers: {
                 'Content-Type': 'application/json',

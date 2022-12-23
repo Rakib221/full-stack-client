@@ -9,13 +9,13 @@ const Orders = () => {
     const {loggedAndSignedInUser,setLoggedAndSignedInUser} = useAuth();
     const auth = loggedAndSignedInUser.email
     useEffect(() => {
-        fetch(`https://sleepy-coast-60059.herokuapp.com/orders?email=${auth}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/orders?email=${auth}`)
         .then(response => response.json())
         .then(data => setOrders(data))
     },[])
     const userOrders = orders.filter(user => user.authEmail === auth);
     // useEffect(() => {
-    //     fetch('https://sleepy-coast-60059.herokuapp.com/ordersByEmail', {
+    //     fetch('https://full-stack-server-hasan.up.railway.app/ordersByEmail', {
     //         method: 'POST',
     //         headers: { 'content-type': 'application/json' },
     //         body: JSON.stringify(auth)

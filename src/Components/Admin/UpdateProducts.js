@@ -7,7 +7,7 @@ const UpdateProducts = () => {
     const { id } = useParams();
     const [updateProduct, setUpdateProduct] = useState({ name: '', price: '', category: '', description: '' });
     useEffect(() => {
-        fetch(`https://sleepy-coast-60059.herokuapp.com/products/${id}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/products/${id}`)
             .then((response) => response.json())
             .then(data => setUpdateProduct(data))
     }, [id])
@@ -45,7 +45,7 @@ const UpdateProducts = () => {
         }
     }
     const handleUpdateProduct = (e) => {
-        const url = `https://sleepy-coast-60059.herokuapp.com/products/${id}`;
+        const url = `https://full-stack-server-hasan.up.railway.app/products/${id}`;
         fetch(url, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
