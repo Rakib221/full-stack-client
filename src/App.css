@@ -15,6 +15,16 @@ html {
 }
 /* Universal end */
 /* nav bar sticky */
+.length{
+  width: 38rem;
+  margin-right: 3px;
+}
+.margin-left{
+  margin-left: 6rem;
+}
+.text-color{
+  color:white;
+}
 .nav-bar-sticky{
   position:sticky;
   top:0;

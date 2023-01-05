@@ -5,14 +5,18 @@ import Product from './Product';
 import { addToDatabaseCart } from '../../Utilities/databaseManager';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
+import useAuth from '../Hook/useAuth';
+import HelpSearch from './HelpSearch';
 const Shop = () => {
     // const [loggedAndSignedInUser, setLoggedAndSignedInUser] = useContext(UserContext);
     // const first12 = fakeData.slice(0, 12);
     // const [products, setProducts] = useState(first12);
+    const {category, isHelpNeeded, setIsHelpNeed} = useAuth();
     const [cart, setCart] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [prPerPage, setPrPerPage] = useState(12);
+    const [popUp, setPopUp] = useState(false);
     const handleAddProduct = (pd) => {
         const newCart = [...cart, pd]
         setCart(newCart);
@@ -27,17 +31,29 @@ const Shop = () => {
         setPrPerPage(e.target.value);
     }
     // handleAddProduct = {handleAddProduct}
+    const [handleOpen, setHandleOpen] = useState({
+        open: false
+    });
+    const handleClose = () => {
+        const closePopUp = {...handleOpen};
+        closePopUp.open = false;
+        setHandleOpen(closePopUp);
+    }
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch(`https://full-stack-server-hasan.up.railway.app/products?page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
+        fetch(`http://localhost:5555/products?category=${category}&&page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
             .then(response => response.json())
             .then(data => {
+                if (data.products.length <= 0) {
+                    // setPopUp(true);
+                    alert("No more item available. Or You may not write android, camera, laptop in the search bar. We have only this 3 categories");
+                }
                 setProducts(data.products);
                 const count = data.count;
                 const pageNumber = Math.ceil(count / prPerPage);
                 setPageCount(pageNumber);
             })
-    }, [currentPage])
+    }, [category, currentPage])
     const [color, setColor] = useState(null);
 
     return (
@@ -85,6 +101,7 @@ const Shop = () => {
 
                     </div>
                 </div> */}
+                {/* {popUp?<HelpSearch handleOpen = {handleOpen} handleClose = {handleClose}></HelpSearch>:<></>} */}
             </div>
             <div className="col-lg-1">
             </div>

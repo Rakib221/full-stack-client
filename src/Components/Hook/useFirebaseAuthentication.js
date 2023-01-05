@@ -29,6 +29,10 @@ const useFirebaseAuthentication = () => {
         uid: '',
     });
 
+    const [isHelpNeeded, setIsHelpNeed] = useState(false);
+
+    const [category, setCategory] = useState('');
+
     const [navBar, setNavBar] = useState(true);
 
     const [loggedUser, setLoggedUser] = useState({});
@@ -228,7 +232,11 @@ const useFirebaseAuthentication = () => {
         handleSignOutByGithub,
         token,
         navBar,
-        setNavBar
+        setNavBar,
+        category,
+        setCategory,
+        isHelpNeeded,
+        setIsHelpNeed
     }
 
 }
