@@ -19,15 +19,15 @@ initializeAuthentication();
 const SignUpAndSignIn = () => {
 
     let { path, url } = useRouteMatch();
-    const [navBarAndFooter, setNavBarAndFooter] = useContext(UserContext);
-    useEffect(() =>{
-        if (path === "/returnAndOrders"){}{
-          const changeState = { ...navBarAndFooter };
-          changeState.navBar = true;
-          changeState.footer = false;
-          setNavBarAndFooter(changeState);
+    const [navBarAndFooter, setNavBarAndFooter, enbaleStoringLoginData] = useContext(UserContext);
+    useEffect(() => {
+        if (path === "/returnAndOrders") { } {
+            const changeState = { ...navBarAndFooter };
+            changeState.navBar = true;
+            changeState.footer = false;
+            setNavBarAndFooter(changeState);
         }
-    },[])
+    }, [])
 
     const [user, setUser] = useState({
         name: '',
@@ -51,6 +51,21 @@ const SignUpAndSignIn = () => {
     const redirect_uri = location.state?.from || '/home';
     // const { from } = location.state || { from: { pathname: "/home" } };
 
+    const handleStoreLoginUserData = (id, email, name, time) => {
+        const loginUserData = { id, email, name, time };
+        fetch('http://localhost:5555/ifCoockieAcceptLoginDataStore', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(loginUserData),
+        })
+            .then(response => response.json())
+            .then(products => {
+            })
+            .then(error => {
+                console.log(error);
+            })
+    }
+
     const handleFacebookLogin = () => {
         handleSignInByFaceBook()
             .then((result) => {
@@ -62,6 +77,9 @@ const SignUpAndSignIn = () => {
                 updateFbUser.isFacebookSignIn = true;
                 updateFbUser.name = result.user.displayName;
                 setLoggedAndSignedInUser(updateFbUser);
+                if (enbaleStoringLoginData) {
+                    handleStoreLoginUserData(result.user.uid, result.user.email, result.user.displayName, new Date());
+                }
                 saveUser(result.user.email, result.user.displayName, result.user.uid, 'PUT');
                 history.push(redirect_uri);
                 // history.replace(from);
@@ -94,6 +112,9 @@ const SignUpAndSignIn = () => {
                 updateGoogleUser.success = true;
                 updateGoogleUser.uid = uid;
                 setLoggedAndSignedInUser(updateGoogleUser);
+                if (enbaleStoringLoginData) {
+                    handleStoreLoginUserData(uid, email, displayName, new Date());
+                }
                 saveUser(email, displayName, uid, 'PUT');
                 history.push(redirect_uri);
             }).catch((error) => {
@@ -121,8 +142,11 @@ const SignUpAndSignIn = () => {
                 githubUser.name = result.user.displayName;
                 githubUser.isGithubSignIn = true;
                 githubUser.uid = result.user.uid;
-                saveUser(result.user.email, result.user.displayName, result.user.uid, 'PUT');
                 setLoggedAndSignedInUser(githubUser);
+                if (enbaleStoringLoginData) {
+                    handleStoreLoginUserData(result.user.uid, result.user.email, result.user.displayName, new Date());
+                }
+                saveUser(result.user.email, result.user.displayName, result.user.uid, 'PUT');
                 history.push(redirect_uri);
             }).catch((error) => {
                 // Handle Errors here.
@@ -222,6 +246,9 @@ const SignUpAndSignIn = () => {
                     newUserInfo.uid = userCredential.user.uid;
                     newUserInfo.error = '';
                     newUserInfo.success = true;
+                    if (enbaleStoringLoginData) {
+                        handleStoreLoginUserData(userCredential.user.uid, userCredential.user.email, userCredential.user.displayName || "No name", new Date());
+                    }
                     setLoggedAndSignedInUser(newUserInfo);
                     // history.replace(from);
                     history.push(redirect_uri);

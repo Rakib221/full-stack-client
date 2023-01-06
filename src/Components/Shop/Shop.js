@@ -41,7 +41,7 @@ const Shop = () => {
     }
     const [products, setProducts] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5555/products?category=${category}&&page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/products?category=${category}&&page=${currentPage}&&numberOfProPerPage=${prPerPage}`)
             .then(response => response.json())
             .then(data => {
                 if (data.products.length <= 0) {

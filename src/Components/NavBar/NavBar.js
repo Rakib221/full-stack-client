@@ -85,7 +85,7 @@ const NavBar = () => {
                                     <input placeholder = "android, laptop, camera" type="search" ref={categoryRef} className="length rounded" onKeyDown = {handleEnterKey}></input>
                                     <Button onClick={handleCategory} variant="outline-success" aria-label="Search"><span className='text-color'>Search</span></Button>
                                 </Form>
-                                <Nav.Link onClick={() => handleNavBarAndFooter("home")} as={Link} to="/home"><span className='text-color'>Our Service and return policy</span></Nav.Link>
+                                <Nav.Link onClick={() => handleNavBarAndFooter("serviceAndReturn")} as={Link} to="/serviceAndReturn"><span className='text-color'>Our Service and return policy</span></Nav.Link>
                                 {
                                     !loggedAndSignedInUser.uid ? <Nav.Link as={Link} to="/login"><span className='text-color'>Login</span></Nav.Link> : <Nav.Link onClick={handleSignedOut}><span className='text-color'>Sign out</span></Nav.Link>
                                 }

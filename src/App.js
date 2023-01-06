@@ -37,7 +37,9 @@ import DashBoardHome from './Components/DashBoard/DashBoardHome';
 import ShopLocationAndRoute from './Components/GoogleM/ShopLocationAndRoute';
 import useAuth from './Components/Hook/useAuth';
 import Footer from './Components/Footer/Footer';
+import ServiceAndReturnPolicy from './Components/ServiceAndReturnPolicy/ServiceAndReturnPolicy';
 import { useEffect } from 'react';
+import CookieConsent, { Cookies, getCookieConsentValue, resetCookieConsentValue } from "react-cookie-consent";
 
 export const UserContext = createContext();
 function App(props) {
@@ -63,82 +65,98 @@ function App(props) {
   // loggedAndSignedInUser.lodded = true;
   // {loggedAndSignedInUser.lodded ? <p>Lodding.....</p> : 
   const [navBarAndFooter, setNavBarAndFooter] = useState({
-    navBar:true,
-    footer:true,
+    navBar: true,
+    footer: true,
   });
 
+  const [enbaleStoringLoginData, setEnbaleStoringLoginData] = useState(false);
+
   return (
-    <UserContext.Provider value={[navBarAndFooter,setNavBarAndFooter]}>
-    <AuthProvider>
-      {/* <Routes>
+    <UserContext.Provider value={[navBarAndFooter, setNavBarAndFooter, enbaleStoringLoginData]}>
+      <AuthProvider>
+        {/* <Routes>
         <Route index element = {<Home/>} />
       </Routes> */}
-      <Router>
+        <Router>
           {/* {
             AuthProvider.navBar && <NavBar></NavBar>
           } */}
-           {
+          {
             navBarAndFooter.navBar && <NavBar></NavBar>
           }
-          
-        <Switch>
-          <Route exact path="/">
-            <Home></Home>
-          </Route>
-          <Route exact path="/home">
-            <Home></Home>
-          </Route>
-          <Route exact path="/product/:productKey">
-            <Buy></Buy>
-          </Route>
-          <Route exact path="/cart">
-            <Cart></Cart>
-          </Route>
-          <Route exact path="/returnAndOrders">
-            <ReturnsAndOrders></ReturnsAndOrders>
-          </Route>
-          <Route exact path="/customer-service">
-            <CustomerService></CustomerService>
-          </Route>
-          <PrivateRoute exact path="/ordered">
-            <Shipment></Shipment>
-          </PrivateRoute>
-          <PrivateRoute exact path="/orders">
-            <Orders></Orders>
-          </PrivateRoute>
-          <PrivateRoute path="/dashboard">
-            <DashBoard></DashBoard>
-          </PrivateRoute>
-          <Route exact path="/login">
-            <SignUpAndSignIn></SignUpAndSignIn>
-          </Route>
-          <Route exact path="/route">
-            <GoogleMapDirec></GoogleMapDirec>
-          </Route>
-          <Route exact path="/productsInsert">
-            <ProductInsert></ProductInsert>
-          </Route>
-          <Route exact path="/handleProduct">
-            <HandleProduct></HandleProduct>
-          </Route>
-          <Route exact path="/map">
-            <ShopLocationAndRoute></ShopLocationAndRoute>
-          </Route>
-          <Route exact path="/handleProduct/update/:id">
-            <UpdateProducts></UpdateProducts>
-          </Route>
-          {/* <Route path="/dashboard/payment/:orderId">
+
+          <Switch>
+            <Route exact path="/">
+              <Home></Home>
+            </Route>
+            <Route exact path="/home">
+              <Home></Home>
+            </Route>
+            <Route exact path="/product/:productKey">
+              <Buy></Buy>
+            </Route>
+            <Route exact path="/cart">
+              <Cart></Cart>
+            </Route>
+            <Route exact path="/returnAndOrders">
+              <ReturnsAndOrders></ReturnsAndOrders>
+            </Route>
+            <Route exact path="/customer-service">
+              <CustomerService></CustomerService>
+            </Route>
+            <PrivateRoute exact path="/ordered">
+              <Shipment></Shipment>
+            </PrivateRoute>
+            <PrivateRoute exact path="/orders">
+              <Orders></Orders>
+            </PrivateRoute>
+            <PrivateRoute path="/dashboard">
+              <DashBoard></DashBoard>
+            </PrivateRoute>
+            <Route exact path="/login">
+              <SignUpAndSignIn></SignUpAndSignIn>
+            </Route>
+            <Route exact path="/route">
+              <GoogleMapDirec></GoogleMapDirec>
+            </Route>
+            <Route exact path="/productsInsert">
+              <ProductInsert></ProductInsert>
+            </Route>
+            <Route exact path="/handleProduct">
+              <HandleProduct></HandleProduct>
+            </Route>
+            <Route exact path="/map">
+              <ShopLocationAndRoute></ShopLocationAndRoute>
+            </Route>
+            <Route exact path="/serviceAndReturn">
+              <ServiceAndReturnPolicy></ServiceAndReturnPolicy>
+            </Route>
+            <Route exact path="/handleProduct/update/:id">
+              <UpdateProducts></UpdateProducts>
+            </Route>
+            {/* <Route path="/dashboard/payment/:orderId">
             <Payment></Payment>
           </Route> */}
-          <Route path="*">
-            <Error></Error>
-          </Route>
-        </Switch>
-      </Router>
-      {
-        navBarAndFooter.footer && <Footer></Footer>
-      }
-    </AuthProvider>
+            <Route path="*">
+              <Error></Error>
+            </Route>
+          </Switch>
+        </Router>
+        {
+          navBarAndFooter.footer && <Footer></Footer>
+        }
+      </AuthProvider>
+      <CookieConsent className="d-flex justify-content-center align-items-center" style={{ background: "#FF4C00",fontSize: "20px",height:"5rem" }} enableDeclineButton onDecline={() => {
+          setEnbaleStoringLoginData(false);
+      }} onAccept={(acceptedByScrolling) => {
+        if (acceptedByScrolling) {
+          // alert("Accept was triggered by user scrolling");
+          setEnbaleStoringLoginData(true);
+        } else {
+          // alert("Accept was triggered by clicking the Accept button");
+          setEnbaleStoringLoginData(true);
+        }
+      }}>This website uses cookies to enhance the user experience.</CookieConsent>
     </UserContext.Provider>
   );
 }

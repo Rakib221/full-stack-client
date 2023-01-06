@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import initializeAuthentication from "../Authentication/firebase.initialize";
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider, onAuthStateChanged, getIdToken, signOut } from "firebase/auth";
 import { useEffect } from "react";
+import { UserContext } from "../../App";
 // import { UserContext } from '../../App';
 // import { useContext } from "react";
 
@@ -29,6 +30,8 @@ const useFirebaseAuthentication = () => {
         uid: '',
     });
 
+    const [enbaleStoringLoginData] = useContext(UserContext);
+
     const [isHelpNeeded, setIsHelpNeed] = useState(false);
 
     const [category, setCategory] = useState('');
@@ -44,6 +47,7 @@ const useFirebaseAuthentication = () => {
     const [price, setPrice] = useState(0);
 
     const [isLoading, setIsLoading] = useState(true);
+
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
     const facebookProvider = new FacebookAuthProvider();
@@ -106,7 +110,7 @@ const useFirebaseAuthentication = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`https://full-stack-server-hasan.up.railway.app/users/${loggedAndSignedInUser.email}`)
+        fetch(`http://localhost:5555/users/${loggedAndSignedInUser.email}`)
             .then((response) => response.json())
             .then(data => setAdmin(data.admin))
     }, [loggedAndSignedInUser.email])
