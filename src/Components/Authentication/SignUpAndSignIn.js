@@ -53,7 +53,7 @@ const SignUpAndSignIn = () => {
 
     const handleStoreLoginUserData = (id, email, name, time) => {
         const loginUserData = { id, email, name, time };
-        fetch('http://localhost:5555/ifCoockieAcceptLoginDataStore', {
+        fetch('https://full-stack-server-hasan.up.railway.app/ifCoockieAcceptLoginDataStore', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(loginUserData),

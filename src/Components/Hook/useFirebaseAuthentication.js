@@ -110,7 +110,7 @@ const useFirebaseAuthentication = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:5555/users/${loggedAndSignedInUser.email}`)
+        fetch(`https://full-stack-server-hasan.up.railway.app/users/${loggedAndSignedInUser.email}`)
             .then((response) => response.json())
             .then(data => setAdmin(data.admin))
     }, [loggedAndSignedInUser.email])
